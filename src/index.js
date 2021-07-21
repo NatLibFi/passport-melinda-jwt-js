@@ -29,37 +29,44 @@
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import jwt from 'jsonwebtoken';
 
-export const defaultJwtOptions = {
-  secretOrPrivateKey: '',
-  issuer: 'melinda-',
-  audience: 'melinda-',
-  algorithms: ['HS512']
-};
+export default class extends JwtStrategy { }
+export const jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('melinda');
 
 export function generateJwtToken(payload, {secretOrPrivateKey = '', issuer = '', audience = '', algorithm = 'HS512'}) {
-  return jwt.sign(payload, secretOrPrivateKey, {issuer, audience, algorithm});
+  // eslint-disable-next-line functional/immutable-data
+  payload.name = undefined;
+  // eslint-disable-next-line functional/immutable-data
+  payload.organization = undefined;
+  // eslint-disable-next-line functional/immutable-data
+  payload.emails = undefined;
+  // eslint-disable-next-line functional/immutable-data
+  payload.exp = makeExpDate();
+  return `melinda ${jwt.sign(payload, secretOrPrivateKey, {issuer, audience, algorithm})}`;
+
+  function makeExpDate() {
+    // eslint-disable-next-line no-var
+    var date = new Date();
+    const monday = (1 + 7 - date.getDay()) % 7;
+    // eslint-disable-next-line functional/immutable-data
+    date.setDate(date.getDate() + monday + 7);
+    // eslint-disable-next-line functional/immutable-data
+    date.setHours(0, 0, 0, 0);
+    return date.getTime() / 1000;
+  }
 }
 
-export function usePassportMiddlewares(passport, {secretOrPrivateKey, issuer = '', audience = '', algorithms = ['HS512']}) {
-  const jwtOptions = {
-    secretOrKey: secretOrPrivateKey,
-    issuer,
-    audience,
-    algorithms,
-    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('melinda')
-  };
+export function verify(decoded, done) {
+  if (decoded.id === undefined) {
+    return done(new Error('Invalid jwt token!'), false);
+  }
 
-  return passport.use('jwt', new JwtStrategy(jwtOptions, (decoded, done) => {
-    if (decoded.id === undefined && decoded.iss !== issuer && decoded.aud !== audience) {
-      return done(new Error('Invalid jwt token!'), false);
-    }
+  if (decoded.id) {
+    // eslint-disable-next-line functional/immutable-data
+    decoded.aud = undefined;
+    // eslint-disable-next-line functional/immutable-data
+    decoded.iss = undefined;
+    return done(null, decoded);
+  }
 
-    if (decoded.id) {
-      decoded.aud = undefined; // eslint-disable-line functional/immutable-data
-      decoded.iss = undefined; // eslint-disable-line functional/immutable-data
-      return done(null, decoded);
-    }
-
-    return done(new Error('Jwt auth error'), false);
-  }));
+  return done(new Error('Jwt auth error'), false);
 }
