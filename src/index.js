@@ -27,7 +27,7 @@
 */
 
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
-import jwt from 'jsonwebtoken';
+import {sign as jwtSign} from 'jsonwebtoken';
 
 export default class extends JwtStrategy { }
 export const jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('melinda');
@@ -40,7 +40,7 @@ export function generateJwtToken(payload, {secretOrPrivateKey = '', issuer = '',
   // eslint-disable-next-line functional/immutable-data
   payload.emails = undefined;
   // eslint-disable-next-line functional/immutable-data
-  return `melinda ${jwt.sign(payload, secretOrPrivateKey, {issuer, audience, algorithm, expiresIn: '120h'})}`;
+  return `melinda ${jwtSign(payload, secretOrPrivateKey, {issuer, audience, algorithm, expiresIn: '120h'})}`;
 }
 
 export function verify(decoded, done) {
