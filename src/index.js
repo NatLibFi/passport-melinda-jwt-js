@@ -40,19 +40,7 @@ export function generateJwtToken(payload, {secretOrPrivateKey = '', issuer = '',
   // eslint-disable-next-line functional/immutable-data
   payload.emails = undefined;
   // eslint-disable-next-line functional/immutable-data
-  payload.exp = makeExpDate();
-  return `melinda ${jwt.sign(payload, secretOrPrivateKey, {issuer, audience, algorithm})}`;
-
-  function makeExpDate() {
-    // eslint-disable-next-line no-var
-    var date = new Date();
-    const monday = (1 + 7 - date.getDay()) % 7;
-    // eslint-disable-next-line functional/immutable-data
-    date.setDate(date.getDate() + monday + 7);
-    // eslint-disable-next-line functional/immutable-data
-    date.setHours(0, 0, 0, 0);
-    return date.getTime() / 1000;
-  }
+  return `melinda ${jwt.sign(payload, secretOrPrivateKey, {issuer, audience, algorithm, expiresIn: '120h'})}`;
 }
 
 export function verify(decoded, done) {
