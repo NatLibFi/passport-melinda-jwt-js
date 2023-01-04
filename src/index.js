@@ -4,7 +4,11 @@ import {sign as jwtSign} from 'jsonwebtoken';
 export default class extends JwtStrategy { }
 export const jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('melinda');
 
-export function generateJwtToken(payload, {secretOrPrivateKey = '', issuer = '', audience = '', algorithm = 'HS512'}) {
+export function generateJwtToken(payload, {secretOrPrivateKey = false, issuer = '', audience = '', algorithm = 'HS512'}) {
+  if (secretOrPrivateKey === false) {
+    throw new Error('Set secret or private key to passport!');
+  }
+
   // eslint-disable-next-line functional/immutable-data
   payload.name = undefined;
   // eslint-disable-next-line functional/immutable-data
@@ -21,10 +25,6 @@ export function verify(decoded, done) {
   }
 
   if (decoded.id) {
-    // eslint-disable-next-line functional/immutable-data
-    decoded.aud = undefined;
-    // eslint-disable-next-line functional/immutable-data
-    decoded.iss = undefined;
     return done(null, decoded);
   }
 
