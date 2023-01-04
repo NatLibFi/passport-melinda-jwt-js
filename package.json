@@ -13,11 +13,11 @@
 		"type": "git",
 		"url": "git@github.com:natlibfi/passport-melinda-jwt-js.git"
 	},
-	"license": "LGPL-3.0+",
+	"license": "MIT+",
 	"version": "1.0.1",
 	"main": "./dist/index.js",
 	"engines": {
-		"node": ">=16"
+		"node": ">=18"
 	},
 	"publishConfig": {
 		"access": "public"
