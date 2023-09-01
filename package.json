@@ -31,19 +31,19 @@
 		"build": "babel src --source-maps --copy-files --delete-dir-on-start --out-dir=dist"
 	},
 	"dependencies": {
-		"jsonwebtoken": "^9.0.1",
-		"passport": ">=0.6.0 <1.0.0",
+		"jsonwebtoken": "^9.0.2",
+		"passport": "^0.6.0",
 		"passport-jwt": "^4.0.1"
 	},
 	"devDependencies": {
-		"@babel/cli": "latest",
-		"@babel/core": "latest",
-		"@babel/eslint-parser": "latest",
-		"@babel/node": "latest",
-		"@babel/preset-env": "latest",
-		"@babel/register": "latest",
-		"@natlibfi/eslint-config-melinda-backend": "^3.0.0",
-		"eslint": "^8.45.0"
+		"@babel/cli": "^7.22.10",
+		"@babel/core": "^7.22.11",
+		"@babel/eslint-parser": "^7.22.11",
+		"@babel/node": "^7.22.10",
+		"@babel/preset-env": "^7.22.14",
+		"@babel/register": "^7.22.5",
+		"@natlibfi/eslint-config-melinda-backend": "^3.0.1",
+		"eslint": "^8.48.0"
 	},
 	"eslintConfig": {
 		"extends": "@natlibfi/melinda-backend"
