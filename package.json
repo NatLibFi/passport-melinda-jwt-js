@@ -24,11 +24,11 @@
 	},
 	"scripts": {
 		"prepare": "npm run build",
-		"lint": "eslint src",
-		"lint:dev": "eslint --fix src",
+		"build": "babel ./src --source-maps --copy-files --delete-dir-on-start --out-dir=dist",
+		"lint": "eslint ./src",
+		"lint:dev": "eslint --fix ./src",
 		"test": "npm run lint",
-		"test:dev": "npm run lint:dev",
-		"build": "babel src --source-maps --copy-files --delete-dir-on-start --out-dir=dist"
+		"test:dev": "npm run lint:dev"
 	},
 	"dependencies": {
 		"jsonwebtoken": "^9.0.2",
