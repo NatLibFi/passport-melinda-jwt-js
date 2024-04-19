@@ -1,7 +1,7 @@
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import {sign as jwtSign} from 'jsonwebtoken';
 
-export default class extends JwtStrategy { }
+export class MelindaJwtStrategy extends JwtStrategy { }
 export const jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('melinda');
 
 export function generateJwtToken(payload, {secretOrPrivateKey = false, issuer = '', audience = '', algorithm = 'HS512'}) {
