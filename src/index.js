@@ -5,11 +5,11 @@ export class MelindaJwtStrategy extends JwtStrategy { }
 export const jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('melinda');
 
 export const cookieExtractor = (req) => {
-  let token = null;
   if (req && req.cookies) {
-    token = req.cookies['melinda'];
+    return req.cookies.melinda || null;
   }
-  return token;
+
+  return null;
 };
 
 export function generateJwtToken(payload, {secretOrPrivateKey = false, issuer = '', audience = '', algorithm = 'HS512'}) {
