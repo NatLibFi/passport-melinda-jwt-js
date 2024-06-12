@@ -1,15 +1,23 @@
 import {Strategy as JwtStrategy, ExtractJwt} from 'passport-jwt';
 import {sign as jwtSign} from 'jsonwebtoken';
 
-export default class extends JwtStrategy { }
+export class MelindaJwtStrategy extends JwtStrategy { }
 export const jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('melinda');
+
+export const cookieExtractor = (req) => {
+  if (req && req.cookies) {
+    return req.cookies.melinda || null;
+  }
+
+  return null;
+};
 
 export function generateJwtToken(payload, {secretOrPrivateKey = false, issuer = '', audience = '', algorithm = 'HS512'}) {
   if (secretOrPrivateKey === false) {
     throw new Error('Set secret or private key to passport!');
   }
 
-  return `melinda ${jwtSign(payload, secretOrPrivateKey, {issuer, audience, algorithm, expiresIn: '120h'})}`;
+  return jwtSign(payload, secretOrPrivateKey, {issuer, audience, algorithm, expiresIn: '120h'});
 }
 
 export function verify(decoded, done) {
