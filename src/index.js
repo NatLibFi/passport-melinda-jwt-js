@@ -9,13 +9,6 @@ export function generateJwtToken(payload, {secretOrPrivateKey = false, issuer = 
     throw new Error('Set secret or private key to passport!');
   }
 
-  // eslint-disable-next-line functional/immutable-data
-  payload.name = undefined;
-  // eslint-disable-next-line functional/immutable-data
-  payload.organization = undefined;
-  // eslint-disable-next-line functional/immutable-data
-  payload.emails = undefined;
-  // eslint-disable-next-line functional/immutable-data
   return `melinda ${jwtSign(payload, secretOrPrivateKey, {issuer, audience, algorithm, expiresIn: '120h'})}`;
 }
 
