@@ -13,22 +13,23 @@
 		"type": "git",
 		"url": "git@github.com:natlibfi/passport-melinda-jwt-js.git"
 	},
-	"license": "MIT+",
+	"license": "MIT",
 	"version": "2.0.0",
 	"main": "./dist/index.js",
+	"type": "module",
 	"engines": {
-		"node": ">=18"
+		"node": ">=22"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"scripts": {
 		"prepare": "npm run build",
-		"build": "babel ./src --source-maps --copy-files --delete-dir-on-start --out-dir=dist",
+		"build": "esbuild \"src/**/*.js\" --sourcemap --platform=node --outdir=dist",
 		"lint": "eslint ./src",
 		"lint:dev": "eslint --fix ./src",
-		"test": "npm run lint",
-		"test:dev": "npm run lint:dev"
+		"test": "npm run lint && npm run test:base",
+		"test:base": "node --test --experimental-test-coverage --test-reporter=spec './src/*.test.js'"
 	},
 	"dependencies": {
 		"jsonwebtoken": "^9.0.2",
@@ -36,25 +37,7 @@
 		"passport-jwt": "^4.0.1"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.24.8",
-		"@babel/core": "^7.25.2",
-		"@babel/node": "^7.25.0",
-		"@babel/preset-env": "^7.25.3",
-		"@babel/register": "^7.24.6",
-		"@natlibfi/eslint-config-melinda-backend": "^3.0.5",
-		"eslint": "^8.57.0"
-	},
-	"eslintConfig": {
-		"extends": "@natlibfi/melinda-backend"
-	},
-	"babel": {
-		"presets": [
-			[
-				"@babel/preset-env",
-				{
-					"targets": "maintained node versions"
-				}
-			]
-		]
+		"esbuild": "^0.25.11",
+		"eslint": "^9.37.0"
 	}
 }
