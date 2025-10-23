@@ -5,13 +5,12 @@
 		"name": "The National Library of Finland"
 	},
 	"keywords": [],
-	"homepage": "https://github.com/NatLibFi/passport-melinda-jwt-js",
+	"homepage": "https://www.npmjs.com/package/@natlibfi/passport-melinda-jwt",
 	"bugs": {
 		"url": "https://github.com/NatLibFi/passport-melinda-jwt-js/issues"
 	},
 	"repository": {
-		"type": "git",
-		"url": "git@github.com:natlibfi/passport-melinda-jwt-js.git"
+		"url": "https://github.com/NatLibFi/passport-melinda-jwt-js"
 	},
 	"license": "MIT",
 	"version": "3.0.0-alpha.3",
