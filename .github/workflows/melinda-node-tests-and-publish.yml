@@ -57,6 +57,7 @@ jobs:
       - uses: mikaelvesavuori/license-compliance-action@v1
         with:
           exclude_pattern: /^@natlibfi/
+          direct: true
 
   publish:
     runs-on: ubuntu-latest
