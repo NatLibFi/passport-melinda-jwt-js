@@ -15,20 +15,21 @@
 	"license": "MIT",
 	"version": "3.0.2-alpha.1",
 	"main": "./dist/index.js",
+	"typings": "./dist/index.d.ts",
 	"type": "module",
 	"engines": {
-		"node": ">=24"
+		"node": ">=26"
 	},
 	"publishConfig": {
 		"access": "public"
 	},
 	"scripts": {
 		"prepare": "npm run build",
-		"build": "esbuild \"src/**/*.js\" --sourcemap --platform=node --outdir=dist",
+		"build": "rm -rf dist && tsc",
 		"lint": "eslint ./src",
 		"lint:dev": "eslint --fix ./src",
 		"test": "npm run lint && npm run test:base",
-		"test:base": "node --test --experimental-test-coverage --test-reporter=spec './src/*.test.js'"
+		"test:base": "node --test --test-force-exit --experimental-test-coverage --test-reporter=spec './src/*.test.ts'"
 	},
 	"dependencies": {
 		"jsonwebtoken": "^9.0.3",
@@ -36,7 +37,12 @@
 		"passport-jwt": "^4.0.1"
 	},
 	"devDependencies": {
-		"esbuild": "^0.28.2",
-		"eslint": "^10.9.1"
+		"@types/jsonwebtoken": "^9.0.10",
+		"@types/node": "^26.6.6",
+		"@types/passport-jwt": "^4.0.1",
+		"eslint": "^10.14.0",
+		"jiti": "^2.7.0",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.72.2"
 	}
 }
